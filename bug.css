@@ -1,0 +1,27 @@
+The following CSS code snippet exhibits an uncommon error related to specificity and inheritance:
+
+```css
+div {
+  color: blue;
+}
+
+p {
+  color: red;
+}
+
+div p {
+  color: green; /* This rule should override both the div and p selectors */
+}
+```
+
+The issue arises when you expect the `div p` selector to override both the `div` and `p` selectors due to its higher specificity.  However, the browser might render the text in green *only if* the `div p` element is a direct child of the `div` element.  If the `p` element is nested deeper within the `div`, for example:
+
+```html
+<div>
+  <span>
+    <p>This text might unexpectedly be red.</p>
+  </span>
+</div>
+```
+
+The `p` selector with `color: red` will override `color: green` due to specificity rules which favor more precise selectors.
